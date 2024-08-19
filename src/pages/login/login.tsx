@@ -15,6 +15,7 @@ export const Login: FC = () => {
   const error = useSelector(authLoginError);
   const dispatch = useDispatch();
   const isLoading = useSelector(authRequestLoginUser);
+
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));

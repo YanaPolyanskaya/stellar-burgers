@@ -35,11 +35,10 @@ export const loginUser = createAsyncThunk(
   async (loginData: TLoginData, { rejectWithValue }) => {
     const response = await loginUserApi(loginData);
     if (!response?.success) {
-      return rejectWithValue(null);
+      return rejectWithValue(response);
     }
-    // return rejectWithValue(respone);
-    //setCookie('accessToken', data.accessToken);
-    // localStorage.setItem('refreshToken', data.refreshToken);
+    setCookie('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
     return response.user;
   }
 );
@@ -50,17 +49,16 @@ export const registerUser = createAsyncThunk(
     const response = await registerUserApi(userData);
 
     if (!response?.success) {
-      return rejectWithValue(null);
+      return rejectWithValue(response);
     }
-    // setCookie('accessToken', data.accessToken);
-    // localStorage.setItem('refreshToken', data.refreshToken);
+    setCookie('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
     return response.user;
   }
 );
 
 export const updateUser = createAsyncThunk(
   'authUser/updateUser',
-  //async (user: Partial<TRegisterData>) => updateUserApi(user)
   async (user: TRegisterData, { rejectWithValue }) => {
     const response = await updateUserApi(user);
 

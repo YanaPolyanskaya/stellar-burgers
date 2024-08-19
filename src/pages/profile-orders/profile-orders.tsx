@@ -11,7 +11,7 @@ export const ProfileOrders: FC = () => {
   /** TODO: взять переменную из стора */
   const isLoading = useSelector(isLoadingOrders);
   const dispatch = useDispatch();
-  const orders: TOrder[] = [];
+  const orders: TOrder[] = useSelector(getUserOrders);
   const user = useSelector(authUserData);
 
   useEffect(() => {
