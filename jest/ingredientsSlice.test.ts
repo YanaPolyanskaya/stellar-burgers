@@ -73,7 +73,7 @@ describe('ingredientsSlice', () => {
     });
 
     it('тестирование состояния rejected', () => {
-      const error = 'Ошибка: ингридиент не найден';
+      const error = 'ошибка: ингридиент не найден';
       const action = {
         type: loadIngredients.rejected.type,
         error: { message: error }

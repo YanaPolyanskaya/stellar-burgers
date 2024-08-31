@@ -70,7 +70,7 @@ describe('authSlice', () => {
     it('тестирование состояния rejected', () => {
       const action = {
         type: loginUser.rejected.type,
-        error: { message: 'Ошибка в получении доступа к личному кабинету' }
+        error: { message: 'ошибка в получении доступа к личному кабинету' }
       };
       const state = authUserReducer(
         { ...initialState, requestLoginUser: true },
@@ -78,7 +78,7 @@ describe('authSlice', () => {
       );
       expect(state.requestLoginUser).toBe(false);
       expect(state.loginError).toBe(
-        'Ошибка в регистристрации пользователя'
+        'ошибка в регистристрации пользователя'
       );
       expect(state.isAuthChecked).toBe(true);
     });
@@ -106,7 +106,7 @@ describe('authSlice', () => {
     it('тестирование состояния rejected', () => {
       const action = {
         type: registerUser.rejected.type,
-        error: { message: 'Ошибка в регистристрации пользователя' }
+        error: { message: 'ошибка в регистристрации пользователя' }
       };
       const state = authUserReducer(
         { ...initialState, requestLoginUser: true },
@@ -114,7 +114,7 @@ describe('authSlice', () => {
       );
       expect(state.requestLoginUser).toBe(false);
       expect(state.registerError).toBe(
-        'Ошибка в регистристрации пользователя'
+        'ошибка в регистристрации пользователя'
       );
     });
   });
