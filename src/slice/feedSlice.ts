@@ -18,7 +18,7 @@ export const loadFeed = createAsyncThunk('feed/loadFeed', async () =>
   getFeedsApi()
 );
 
-const feedSlice = createSlice({
+export const feedSlice = createSlice({
   name: 'feed',
   initialState: initialState,
   reducers: {},
