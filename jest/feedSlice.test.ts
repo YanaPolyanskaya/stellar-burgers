@@ -14,8 +14,8 @@ describe('feedSlice', () => {
       _id: '1',
       status: 'готов',
       name: 'Бургер',
-      createdAt: '2023-01-01T00:00:00.000Z',
-      updatedAt: '2023-01-01T00:00:00.000Z',
+      createdAt: '2024-08-30T00:00:00.000Z',
+      updatedAt: '2024-08-30T00:00:00.000Z',
       number: 123,
       ingredients: ['Булка', 'Начинка']
     }
