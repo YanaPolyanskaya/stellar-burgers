@@ -5,7 +5,7 @@ import {
 } from '../src/slice/IngredientsSlice';
 
 describe('ingredientsSlice', () => {
-  const mockIngredients = [
+  const ingredientsMock = [
     {
       _id: '643d69a5c3f7b9001cfa093c',
       name: 'Краторная булка N-200i',
@@ -64,11 +64,11 @@ describe('ingredientsSlice', () => {
     it('тестирование состояния fulfilled', () => {
       const action = {
         type: loadIngredients.fulfilled.type,
-        payload: mockIngredients
+        payload: ingredientsMock
       };
       const state = ingredientsReducer(initialState, action);
       expect(state.orderRequest).toBe(false);
-      expect(state.ingredients).toEqual(mockIngredients);
+      expect(state.ingredients).toEqual(ingredientsMock);
       expect(state.error).toBe(null);
     });
 

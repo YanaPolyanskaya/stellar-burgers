@@ -16,7 +16,7 @@ jest.mock('../../utils/cookie', () => ({
   getCookie: jest.fn()
 }));
 
-const localStorageMock = (function () {
+const storageMock = (function () {
   let store: { [key: string]: string } = {};
 
   return {
@@ -33,12 +33,12 @@ const localStorageMock = (function () {
   };
 })();
 
-Object.defineProperty(global, 'localStorage', { value: localStorageMock });
+Object.defineProperty(global, 'storage', { value: storageMock });
 
-describe('authUserSlice', () => {
-  const mockUser: TUser = {
-    email: 'test@test.com',
-    name: 'test user'
+describe('authSlice', () => {
+  const userMock: TUser = {
+    email: 'yanochka.p.a@mail.ru',
+    name: 'test'
   };
 
   it('тестирование начального состояния', () => {
@@ -58,11 +58,11 @@ describe('authUserSlice', () => {
     it('тестирование состояния fulfilled', () => {
       const action = {
         type: loginUser.fulfilled.type,
-        payload: mockUser
+        payload: userMock
       };
       const state = authUserReducer(initialState, action);
       expect(state.requestLoginUser).toBe(false);
-      expect(state.userData).toEqual(mockUser);
+      expect(state.userData).toEqual(userMock);
       expect(state.isAuthChecked).toBe(true);
       expect(state.loginError).toBeNull();
     });
@@ -95,11 +95,11 @@ describe('authUserSlice', () => {
     it('тестирование состояния fulfilled', () => {
       const action = {
         type: registerUser.fulfilled.type,
-        payload: mockUser
+        payload: userMock
       };
       const state = authUserReducer(initialState, action);
       expect(state.requestLoginUser).toBe(false);
-      expect(state.userData).toEqual(mockUser);
+      expect(state.userData).toEqual(userMock);
       expect(state.registerError).toBeNull();
     });
 
@@ -123,7 +123,7 @@ describe('authUserSlice', () => {
     it('тестирование состояния pending', () => {
       const action = { type: logoutUser.pending.type };
       const state = authUserReducer(
-        { ...initialState, userData: mockUser, isAuthChecked: true },
+        { ...initialState, userData: userMock, isAuthChecked: true },
         action
       );
       expect(state.requestLoginUser).toBe(true);
@@ -134,7 +134,7 @@ describe('authUserSlice', () => {
       const state = authUserReducer(
         {
           ...initialState,
-          userData: mockUser,
+          userData: userMock,
           isAuthChecked: true,
           requestLoginUser: true
         },
@@ -161,7 +161,7 @@ describe('authUserSlice', () => {
     it('тестирование состояния pending', () => {
       const action = { type: updateUser.pending.type };
       const state = authUserReducer(
-        { ...initialState, userData: mockUser },
+        { ...initialState, userData: userMock },
         action
       );
       expect(state.requestLoginUser).toBe(true);
@@ -170,7 +170,7 @@ describe('authUserSlice', () => {
     });
 
     it('тестирование состояния fulfilled', () => {
-      const updatedUser = { ...mockUser, name: 'новый пользователь' };
+      const updatedUser = { ...userMock, name: 'новый пользователь' };
       const action = {
         type: updateUser.fulfilled.type,
         payload: { user: updatedUser }
@@ -204,10 +204,10 @@ describe('authUserSlice', () => {
     it('тестирование состояния fulfilled', () => {
       const action = {
         type: fetchGetUser.fulfilled.type,
-        payload: { user: mockUser }
+        payload: { user: userMock }
       };
       const state = authUserReducer(initialState, action);
-      expect(state.userData).toEqual(mockUser);
+      expect(state.userData).toEqual(userMock);
     });
   });
 
@@ -215,10 +215,10 @@ describe('authUserSlice', () => {
     it('тестирование состояния fulfilled', () => {
       const action = {
         type: fetchGetUser.fulfilled.type,
-        payload: { user: mockUser }
+        payload: { user: userMock }
       };
       const state = authUserReducer(initialState, action);
-      expect(state.userData).toEqual(mockUser);
+      expect(state.userData).toEqual(userMock);
     });
   });
 });

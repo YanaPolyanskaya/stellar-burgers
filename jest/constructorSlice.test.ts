@@ -8,7 +8,7 @@ import {
 } from '../src/slice/constructorSlice';
 
 describe('constructorSlice', () => {
-  const mockBun = {
+  const bunMock = {
     _id: '1',
     name: 'Краторная булка N-200i',
     type: 'bun',
@@ -22,7 +22,7 @@ describe('constructorSlice', () => {
     image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png'
   };
 
-  const mockIngredient = {
+  const ingredientMock = {
     _id: '2',
     name: 'Биокотлета из марсианской Магнолии',
     type: 'main',
@@ -37,56 +37,56 @@ describe('constructorSlice', () => {
   };
   //?
   it('тестирование добавления булки', () => {
-    const action = addIngredient(mockBun);
-    const actualState = constructorReducer(initialState, action);
-    expect(actualState).toEqual({
+    const action = addIngredient(bunMock);
+    const currentState = constructorReducer(initialState, action);
+    expect(currentState).toEqual({
       ...initialState,
-      bun: { ...mockBun, id: expect.any(String) }
+      bun: { ...bunMock, id: expect.any(String) }
     });
   });
 
   it('тестирование добавления ингредиента', () => {
-    const action = addIngredient(mockIngredient);
-    const actualState = constructorReducer(initialState, action);
-    expect(actualState).toEqual({
+    const action = addIngredient(ingredientMock);
+    const currentState = constructorReducer(initialState, action);
+    expect(currentState).toEqual({
       ...initialState,
-      ingredients: [{ ...mockIngredient, id: expect.any(String) }]
+      ingredients: [{ ...ingredientMock, id: expect.any(String) }]
     });
   });
 
   it('тестирование удаления ингредиента', () => {
     const state = {
       ...initialState,
-      ingredients: [{ ...mockIngredient, id: '2' }]
+      ingredients: [{ ...ingredientMock, id: '2' }]
     };
     const action = deleteIngredient('2');
-    const actualState = constructorReducer(state, action);
-    expect(actualState).toEqual(initialState);
+    const currentState = constructorReducer(state, action);
+    expect(currentState).toEqual(initialState);
   });
 
   it('тестирование изменения порядка ингредиентов в начинке', () => {
     const state = {
       ...initialState,
       ingredients: [
-        { ...mockIngredient, id: '1', name: 'Ингредиент 1' },
-        { ...mockIngredient, id: '2', name: 'Ингредиент 2' }
+        { ...ingredientMock, id: '1', name: 'Ингредиент 1' },
+        { ...ingredientMock, id: '2', name: 'Ингредиент 2' }
       ]
     };
     const action = changeIngredient({ initialIndex: 0, finishIndex: 1 });
-    const actualState = constructorReducer(state, action);
-    expect(actualState.ingredients).toEqual([
-      { ...mockIngredient, id: '2', name: 'Ингредиент 2' },
-      { ...mockIngredient, id: '1', name: 'Ингредиент 1' }
+    const currentState = constructorReducer(state, action);
+    expect(currentState.ingredients).toEqual([
+      { ...ingredientMock, id: '2', name: 'Ингредиент 2' },
+      { ...ingredientMock, id: '1', name: 'Ингредиент 1' }
     ]);
   });
 
   it('тестирование очистки конструктора', () => {
     const state = {
-      bun: { ...mockBun, id: '1' },
-      ingredients: [{ ...mockIngredient, id: '1' }]
+      bun: { ...bunMock, id: '1' },
+      ingredients: [{ ...ingredientMock, id: '1' }]
     };
     const action = clearConstructor();
-    const actualState = constructorReducer(state, action);
-    expect(actualState).toEqual(initialState);
+    const currentState = constructorReducer(state, action);
+    expect(currentState).toEqual(initialState);
   });
 });

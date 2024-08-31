@@ -7,7 +7,7 @@ export interface IOrdersState {
   isLoading: boolean;
 }
 
-const initialState: IOrdersState = {
+export const initialState: IOrdersState = {
   orders: [],
   isLoading: false
 };
