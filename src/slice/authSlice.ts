@@ -101,7 +101,7 @@ interface IAuthUserState {
   updateError?: string;
 }
 
-const initialState: IAuthUserState = {
+export const initialState: IAuthUserState = {
   userData: null,
   isAuthChecked: false,
   requestLoginUser: false

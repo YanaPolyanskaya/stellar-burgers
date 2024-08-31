@@ -7,12 +7,12 @@ interface IConstructorState {
   ingredients: TConstructorIngredient[];
 }
 
-const initialState: IConstructorState = {
+export const initialState: IConstructorState = {
   bun: null,
   ingredients: []
 };
 
-const constructorSlice = createSlice({
+export const constructorSlice = createSlice({
   name: 'constructorSlice',
   initialState,
   reducers: {
