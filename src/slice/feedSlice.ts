@@ -4,14 +4,16 @@ import { TOrder } from '@utils-types';
 
 interface IFeedState {
   orders: TOrder[];
-  total: number;
-  totalToday: number;
+  total: number | null;
+  totalToday: number | null;
+  error: string | null;
 }
 
 export const initialState: IFeedState = {
   orders: [],
-  total: 0,
-  totalToday: 0
+  total: null,
+  totalToday: null,
+  error: null
 };
 
 export const loadFeed = createAsyncThunk('feed/loadFeed', async () =>

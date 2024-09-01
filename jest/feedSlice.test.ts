@@ -1,8 +1,8 @@
+import { error } from 'console';
 import {
   feedReducer,
   getFeedState,
   getFeedOrders,
-  //getErrorFeed,
   loadFeed,
   initialState
 } from '../src/slice/feedSlice';
@@ -23,8 +23,8 @@ describe('feedSlice', () => {
 
   const feedMock = {
     orders: ordersMock,
-    total: 12,
-    totalToday: 2,
+    total: 11,
+    totalToday: 3,
     error: null
   };
 
@@ -37,8 +37,9 @@ describe('feedSlice', () => {
       const action = { type: loadFeed.pending.type };
       const state = feedReducer(initialState, action);
       expect(state.orders).toEqual([]);
-      expect(state.total).toBeNull();
       expect(state.totalToday).toBeNull();
+      expect(state.total).toBeNull();
+      expect(state.error).toBeNull();
     });
 
     it('тестирование состояния fulfilled', () => {
@@ -48,8 +49,9 @@ describe('feedSlice', () => {
       };
       const state = feedReducer(initialState, action);
       expect(state.orders).toEqual(ordersMock);
-      expect(state.total).toBe(12);
-      expect(state.totalToday).toBe(2);
+      expect(state.total).toBe(11);
+      expect(state.totalToday).toBe(3);
+      expect(state.error).toBeNull();
     });
 
     it('тестирование состояния rejected', () => {
@@ -61,6 +63,7 @@ describe('feedSlice', () => {
       expect(state.orders).toEqual([]);
       expect(state.total).toBeNull();
       expect(state.totalToday).toBeNull();
+      expect(state.error).toBe(null);
     });
   });
 
@@ -73,6 +76,10 @@ describe('feedSlice', () => {
     it('тестирование заказа', () => {
       const state = { feed: feedMock };
       expect(getFeedOrders(state)).toEqual(ordersMock);
+    });
+    it('тестирование ошибки', () => {
+      const state = { feed: { ...feedMock, error: 'ошибка' } };
+      expect(error(state)).toBe(undefined);
     });
   });
 });

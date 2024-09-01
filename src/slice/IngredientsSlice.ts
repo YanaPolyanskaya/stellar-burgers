@@ -38,7 +38,7 @@ const IngredientsSlice = createSlice({
       })
       .addCase(loadIngredients.rejected, (state) => {
         state.orderRequest = false;
-        state.error = 'Ошибка: ингридиент не найден';
+        state.error = 'ошибка: ингридиент не найден';
       });
   }
 });

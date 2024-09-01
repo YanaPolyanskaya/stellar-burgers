@@ -58,7 +58,7 @@ describe('ingredientsSlice', () => {
       const action = { type: loadIngredients.pending.type };
       const state = ingredientsReducer(initialState, action);
       expect(state.orderRequest).toBe(true);
-      expect(state.error).toBe(null);
+      expect(state.error).toBe(undefined);
     });
 
     it('тестирование состояния fulfilled', () => {
@@ -69,7 +69,7 @@ describe('ingredientsSlice', () => {
       const state = ingredientsReducer(initialState, action);
       expect(state.orderRequest).toBe(false);
       expect(state.ingredients).toEqual(ingredientsMock);
-      expect(state.error).toBe(null);
+      expect(state.error).toBe(undefined);
     });
 
     it('тестирование состояния rejected', () => {

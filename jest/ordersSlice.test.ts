@@ -1,18 +1,15 @@
 import {
   ordersReducer,
-  loadUserOrders
+  loadUserOrders,
+  error,
+  getUserOrders
 } from '../src/slice/ordersSlice';
 import { TOrder } from '../src/utils/types';
+
 describe('loadUserOrders', () => {
   const initialState = {
     orders: [] as TOrder[],
-    isLoading: false,
-  };
-})
-describe('loadUserOrders', () => {
-  const initialState = {
-    orders: [] as TOrder[],
-    isLoading: false,
+    error: null
   };
 
   const ordersMock: TOrder[] = [
@@ -45,7 +42,7 @@ describe('loadUserOrders', () => {
       const action = { type: loadUserOrders.pending.type };
       const state = ordersReducer(initialState, action);
       expect(state.orders).toEqual([]);
-      expect(state.isLoading).toBe(false);
+      expect(state.error).toBe(null);
     });
 
     it('тестирование состояния fulfilled', () => {
@@ -55,6 +52,7 @@ describe('loadUserOrders', () => {
       };
       const state = ordersReducer(initialState, action);
       expect(state.orders).toEqual(ordersMock);
+      expect(state.error).toBe(null);
     });
 
     it('тестирование состояния rejected', () => {
@@ -64,12 +62,18 @@ describe('loadUserOrders', () => {
       };
       const state = ordersReducer(initialState, action);
       expect(state.orders).toEqual([]);
+      expect(state.error).toBe('ошибка при получении заказов');
     });
   });
-  
+
   describe('селекторы', () => {
     it('тестирование заказов', () => {
-      const state = { userOrders: { orders: ordersMock, error: null } };
+      const state = { orders: { orders: ordersMock, error: null } };
+      expect(getUserOrders(state)).toEqual(ordersMock);
+    });
+    it('тестирование ошибки', () => {
+      const state = { orders: { orders: [], error: 'ошибка' } };
+      expect(error(state)).toBe('ошибка');
     });
   });
 });

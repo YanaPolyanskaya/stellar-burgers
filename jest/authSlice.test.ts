@@ -10,13 +10,13 @@ import {
 } from '../src/slice/authSlice';
 import { TUser } from '../src/utils/types';
 
-jest.mock('../../utils/cookie', () => ({
+jest.mock('../src/utils/cookie', () => ({
   deleteCookie: jest.fn(),
   setCookie: jest.fn(),
   getCookie: jest.fn()
 }));
 
-const storageMock = (function () {
+const localStorageMock = (function () {
   let store: { [key: string]: string } = {};
 
   return {
@@ -33,7 +33,7 @@ const storageMock = (function () {
   };
 })();
 
-Object.defineProperty(global, 'storage', { value: storageMock });
+Object.defineProperty(global, 'localStorage', { value: localStorageMock });
 
 describe('authSlice', () => {
   const userMock: TUser = {
@@ -70,7 +70,7 @@ describe('authSlice', () => {
     it('тестирование состояния rejected', () => {
       const action = {
         type: loginUser.rejected.type,
-        error: { message: 'ошибка в получении доступа к личному кабинету' }
+        error: { message: 'ошибка в получении доступа к личному кабинет' }
       };
       const state = authUserReducer(
         { ...initialState, requestLoginUser: true },
@@ -78,7 +78,7 @@ describe('authSlice', () => {
       );
       expect(state.requestLoginUser).toBe(false);
       expect(state.loginError).toBe(
-        'ошибка в регистристрации пользователя'
+        'ошибка в получении доступа к личному кабинет'
       );
       expect(state.isAuthChecked).toBe(true);
     });
@@ -113,9 +113,7 @@ describe('authSlice', () => {
         action
       );
       expect(state.requestLoginUser).toBe(false);
-      expect(state.registerError).toBe(
-        'ошибка в регистристрации пользователя'
-      );
+      expect(state.registerError).toBe('ошибка в регистристрации пользователя');
     });
   });
 
