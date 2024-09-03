@@ -1,10 +1,10 @@
 import * as orderFake from '../fixtures/order.json';
-
+export const ORDER_BUTTON = '[data-order-button]';
 describe('test constructor', () => {
   beforeEach(() => {
 
     cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients' });
-    cy.visit('http://localhost:4001');
+    cy.visit('/');
   });
 
   it('добавление ингредиента в конструктор', () => {
@@ -52,13 +52,13 @@ describe('test constructor', () => {
 
     it('тестирование оформления заказа', () => {
 
-      cy.get('[data-order-button]').should('be.disabled');
+      cy.get(ORDER_BUTTON).should('be.disabled');
       cy.get('[data-ingredient="bun"]:first-of-type button').click();
-      cy.get('[data-order-button]').should('be.disabled');
+      cy.get(ORDER_BUTTON).should('be.disabled');
       cy.get('[data-ingredient="main"]:first-of-type button').click();
-      cy.get('[data-order-button]').should('be.enabled');
+      cy.get(ORDER_BUTTON).should('be.enabled');
 
-      cy.get('[data-order-button]').click();
+      cy.get(ORDER_BUTTON).click();
 
       cy.get('#modals').children().should('have.length', 2);
 
@@ -67,7 +67,7 @@ describe('test constructor', () => {
         orderFake.order.number
       );
 
-      cy.get('[data-order-button]').should('be.disabled');
+      cy.get(ORDER_BUTTON).should('be.disabled');
     });
 
     afterEach(() => {

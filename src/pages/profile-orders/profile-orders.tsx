@@ -4,12 +4,12 @@ import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
 import { loadUserOrders, getUserOrders } from '../../slice/ordersSlice';
 import { authUserData } from '../../slice/authSlice';
-import { isLoading as isLoadingOrders } from '../../slice/ordersSlice';
+//import { isLoading as isLoadingOrders } from '../../slice/ordersSlice';
 import { Preloader } from '@ui';
 
 export const ProfileOrders: FC = () => {
   /** TODO: взять переменную из стора */
-  const isLoading = useSelector(isLoadingOrders);
+  //const isLoading = useSelector(isLoadingOrders);
   const dispatch = useDispatch();
   const orders: TOrder[] = useSelector(getUserOrders);
   const user = useSelector(authUserData);
@@ -18,9 +18,9 @@ export const ProfileOrders: FC = () => {
     if (user) dispatch(loadUserOrders());
   }, []);
 
-  if (isLoading) {
-    return <Preloader />;
-  }
+  // if (isLoading) {
+  //   return <Preloader />;
+  // }
 
   return <ProfileOrdersUI orders={orders} />;
 };
