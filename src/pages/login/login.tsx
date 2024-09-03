@@ -12,7 +12,7 @@ import { Preloader } from '@ui';
 export const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const error = useSelector(authLoginError);
+  const error = useSelector(authLoginError) || undefined;
   const dispatch = useDispatch();
   const isLoading = useSelector(authRequestLoginUser);
 

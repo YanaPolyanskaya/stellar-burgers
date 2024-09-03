@@ -4,12 +4,12 @@ import { TOrder } from '@utils-types';
 
 export interface IOrdersState {
   orders: TOrder[];
-  isLoading: boolean;
+  error: string | null;
 }
 
-const initialState: IOrdersState = {
+export const initialState: IOrdersState = {
   orders: [],
-  isLoading: false
+  error: null
 };
 
 export const loadUserOrders = createAsyncThunk(
@@ -23,23 +23,22 @@ const userOrdersSlice = createSlice({
   reducers: {},
   selectors: {
     getUserOrders: (state) => state.orders,
-    isLoading: (state) => state.isLoading
+    error: (state) => state.error
   },
   extraReducers: (builder) => {
     builder
       .addCase(loadUserOrders.pending, (state) => {
-        state.isLoading = true;
+        state.error = null;
       })
       .addCase(loadUserOrders.rejected, (state) => {
-        state.isLoading = false;
+        state.error = 'ошибка при получении заказов';
       })
       .addCase(loadUserOrders.fulfilled, (state, action) => {
         state.orders = action.payload;
-        state.isLoading = false;
       });
   }
 });
 
 export const ordersReducer = userOrdersSlice.reducer;
 export const ordersSliceName = userOrdersSlice.name;
-export const { getUserOrders, isLoading } = userOrdersSlice.selectors;
+export const { getUserOrders, error } = userOrdersSlice.selectors;

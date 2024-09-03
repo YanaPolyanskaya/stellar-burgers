@@ -96,15 +96,18 @@ interface IAuthUserState {
   userData: TUser | null;
   isAuthChecked: boolean;
   requestLoginUser: boolean;
-  registerError?: string;
-  loginError?: string;
-  updateError?: string;
+  registerError?: string | null;
+  loginError?: string | null;
+  updateError?: string | null;
 }
 
-const initialState: IAuthUserState = {
+export const initialState: IAuthUserState = {
   userData: null,
   isAuthChecked: false,
-  requestLoginUser: false
+  requestLoginUser: false,
+  registerError: null,
+  loginError: null,
+  updateError: null
 };
 
 const authSlice = createSlice({
@@ -135,7 +138,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state) => {
         state.isAuthChecked = true;
-        state.loginError = 'Ошибка в получении доступа к личному кабинету';
+        state.loginError = 'ошибка в получении доступа к личному кабинет';
         state.requestLoginUser = false;
       })
       .addCase(registerUser.pending, (state) => {
@@ -146,7 +149,7 @@ const authSlice = createSlice({
         state.requestLoginUser = false;
       })
       .addCase(registerUser.rejected, (state) => {
-        state.registerError = 'Ошибка в регистристрации пользователя';
+        state.registerError = 'ошибка в регистристрации пользователя';
         state.requestLoginUser = false;
       })
       .addCase(logoutUser.pending, (state) => {
@@ -171,7 +174,7 @@ const authSlice = createSlice({
       })
       .addCase(updateUser.rejected, (state) => {
         state.requestLoginUser = false;
-        state.updateError = 'Ошибка в обновлении данных';
+        state.updateError = 'ошибка в обновлении данных';
       })
       .addCase(fetchGetUser.fulfilled, (state, action) => {
         state.userData = action.payload.user;
